@@ -1,0 +1,60 @@
+<head>
+  <title>Meteor YO!</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <div class="outer">
+    <h1 class="title">Meteor YO!</h1>
+    {{#if currentUser}}
+      <div class="subtitle">Wellcome to our community</div>
+      <div align="center">{{> loginButtons}}</div>
+      <br>
+      {{> userlist}}
+    {{else}}
+        <div class="subtitle">Login to continue</div>
+        <div align="center">{{> loginButtons}}</div>
+    {{/if}}
+  </div>
+</body>
+
+<!-- userlist template -->
+<template name="userlist">
+  {{> inboxinfo}}
+  <br><br><br>
+  <div>We are {{usernum}} users in our community.</div>
+  <div>These are the other users and your YOs!:</div>
+  <ol class="userlist">
+    {{#each allusers}}
+       {{> user}}
+    {{/each}}
+  </ol>
+  
+  {{#if selectedName}}
+    <div class="details">
+      <div class="name">{{selectedName}}</div>
+      <button class="send">Send YO!</button>
+    </div>
+  {{else}}
+    <div class="message">Click a user to select and send a YO!</div>
+  {{/if}}
+</template>
+
+<!-- user template -->
+<template name="user">
+  <li class="user {{selectedClass}}">
+    <span class="name">{{username}}</span>
+    {{#if notification}}
+      <button class="msgYo">YO!</button>
+    {{/if}}
+  </li>
+</template>
+
+<!-- inboxinfo template -->
+<template name="inboxinfo">
+  <div class="inboxinfo">
+    <span class="inboxsize">Your inbox has {{inboxYos}} YOs!</span>
+    <button class="clear">Clear all YO!</button>
+  </div>
+</template>
